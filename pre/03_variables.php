@@ -16,3 +16,6 @@ $named_array = [];
 $named_array['teacher'] = 'Shahar';
 var_dump($named_array);
 
+function power($num){
+    return $num * $num;
+}
