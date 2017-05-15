@@ -22,4 +22,4 @@ $person2 = array(
     "children" => $child
 );
 
-echo '<pre>', print_r($person1, true), '</pre>';
+echo '<pre>', print_r($person2, true), '</pre>';
