@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Array Exercise 01
  *
  * Create a PHP script which displays the capital and country name from the array $countries.
