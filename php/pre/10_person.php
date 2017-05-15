@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * OOP - Object Oriented Programing
  *
  * Benefits:
@@ -8,9 +8,7 @@
  * 2) Easier to maintain code base
  *
  * */
-
-
-class person
+class Person
 {
     var $name, $profession, $gender;
 
@@ -25,7 +23,17 @@ class person
     {
         return "Hi my name is {$this->name}, I am a {$this->gender}, and I work as {$this->profession}";
     }
+
+    function set_name($name)
+    {
+        $this->name = $name;
+    }
+
+    function get_name()
+    {
+        return $this->name;
+    }
 }
 
-$person = new person("Shahar", "Full Stack Developer", "Male");
+$person = new Person("Shahar", "Full Stack Developer", "Male");
 print_r($person->hello());
