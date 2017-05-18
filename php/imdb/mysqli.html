@@ -11,6 +11,9 @@
         body {
             margin-bottom: 100px;
         }
+        h2{
+            margin-top: 40px;
+        }
     </style>
 
 </head>
@@ -22,8 +25,8 @@
         <ul>
             <li><a href="#create">C - Create</a></li>
             <li><a href="#read">R - Read</a></li>
-            <li>U - Update</li>
-            <li>D - Delete</li>
+            <li><a href="#update">U - Update</a></li>
+            <li><a href="#delete">D - Delete</a></li>
         </ul>
     </blockquote>
 
@@ -95,6 +98,47 @@
     }
     echo "&lt;/ul&gt;";
     </code></pre>
+
+
+    <h2 id="update">Update existing data</h2>
+    <ol>
+        <li>Connect to database</li>
+        <li>Create a query and update data in the MySQL database</li>
+    </ol>
+
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and update data in the MySQL database<
+    $id = 817;
+    $escape_image_path = $mysqli->real_escape_string($image_path);
+    $result = $mysqli->query("UPDATE movies SET image_url='$escape_image_path' WHERE ID=$id");
+    </code></pre>
+
+
+    <h2 id="delete">Remove data - (Delete)</h2>
+    <ol>
+        <li>Connect to database</li>
+        <li>Create a query and delete data from the MySQL database</li>
+    </ol>
+    <div class="alert alert-danger" role="alert"><b>Pay attention!</b> Once a row has been deleted there is no way to
+        un-delete.
+    </div>
+
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and delete data from the MySQL database
+    $results = $mysqli->query("DELETE FROM pages WHERE id=222");
+    </code></pre>
+    <div class="alert alert-info" role="alert">You can also use mysql function for example:</div>
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // For example delete everything from pages that is older then 10 days
+    $results = $mysqli->query("DELETE FROM products WHERE added_datetime < (NOW() - INTERVAL 10 DAY)");
+    </code></pre>
+
 
 </div>
 </body>
