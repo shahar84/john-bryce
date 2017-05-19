@@ -85,6 +85,19 @@
     echo "&lt;h1&gt;Welcome to page $page['name'] &lt;/h1&gt;";
     </code></pre>
 
+    <h3>Fetch single item as Object</h3>
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and fetching the data
+    $result = $mysqli->query("SELECT * FROM pages WHERE id=22");
+    // Present\use the data
+    $page = $result->fetch_object()
+    echo "&lt;h1&gt;Welcome to page $page->name&lt;/h1&gt;";
+    </code></pre>
+
+
+
     <h3>Fetch Multiple items</h3>
     <pre><code class="php">
     // Connect to database
