@@ -26,3 +26,8 @@ do {
     echo "The number is: $x <br>";
     $x++;
 } while ($x <= 3);
+
+echo '<h2>Foreach loop</h2>';
+foreach ($names as $key => $name){
+    echo "My name is $name <br>";
+}
