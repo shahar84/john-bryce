@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Write a class that can convert the following:
  * 1) KM to Miles -  (number * 0.621)
@@ -7,8 +8,14 @@
  * 4) Pounds to Kilos - (number * 0.453592)
  *
  */
+class Converter
+{
 
-class Converter{
+    function km_to_miles($km)
+    {
+        return $km * 0.621;
+    }
 
 }
+
 
