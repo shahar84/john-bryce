@@ -56,7 +56,7 @@ if (isset($_GET['id'])) {
 
 <body>
 <main>
-    
+
     <div class="container">
         <?php echo $output; ?>
     </div>

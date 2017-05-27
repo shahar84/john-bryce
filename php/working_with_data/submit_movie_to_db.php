@@ -3,7 +3,7 @@ include "../lib/global_functions.php";
 include "../database/connection.php";
 header('Content-Type: application/json; Charset=UTF-8');
 
-$data = get_post_data();
+$data = get_post_body();
 $result = false;
 if (isset($data['name']) && isset($data['year'])) {
     $name = $mysqli->real_escape_string($data['name']);
