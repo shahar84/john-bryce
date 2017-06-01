@@ -1,0 +1,17 @@
+main {
+    margin-top: 50px;
+}
+
+.movie {
+    margin:auto;
+    max-width: 600px;
+}
+
+.movie img {
+    max-width: 300px;
+}
+.edit-form{
+    max-width: 600px;
+    margin: 50px auto;
+    /*background: red;*/
+}
