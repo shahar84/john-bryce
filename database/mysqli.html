@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mysqli OOP style</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/darcula.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        body {
+            margin-bottom: 100px;
+        }
+        h2{
+            margin-top: 40px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <h1>Mysqli Objectives</h1>
+    <blockquote>
+        <h2>CRUD operation</h2>
+        <ul>
+            <li><a href="#create">C - Create</a></li>
+            <li><a href="#read">R - Read</a></li>
+            <li><a href="#update">U - Update</a></li>
+            <li><a href="#delete">D - Delete</a></li>
+        </ul>
+    </blockquote>
+
+
+    <h2>Database Connection</h2>
+    <pre><code class="php">
+    // Can be use thou a connection file and be included in the needed scripts for DRY code
+    $host = "localhost";
+    $root = "root";
+    $password = "root";
+    $database = "database_name";
+    $mysqli = new mysqli($host,$root, $password, $database);
+    </code></pre>
+
+
+    <h2 id="create">Inserting data - (Create)</h2>
+    <ol>
+        <li>Connect to database</li>
+        <li>Escape the data</li>
+        <li>Create a query and insert data into MySQL database</li>
+    </ol>
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Escape the data
+    $page_name = '"'.$mysqli->real_escape_string('About page').'"';
+    $page_content = '"'.$mysqli->real_escape_string('About our company texts...').'"';
+    // Create a query and insert data into MySQL database
+    $insert_row = $mysqli->query("INSERT INTO pages (page_name, page_content) VALUES($page_name, $page_content)");
+    // You can check if the insertion was successful like so
+    if($insert_row){
+        echo "Success! ID of last inserted record is : " .$mysqli->insert_id ;
+    }else{
+        die("Error : ( ".  $mysqli->errno ." )". $mysqli->error ) ;
+    }
+    </code></pre>
+
+
+    <h2 id="read">Fetching data - (Read)</h2>
+    <p>Stages need to be taken to fetch data</p>
+    <ol>
+        <li>Connect to database</li>
+        <li>Create a query and fetching the data</li>
+        <li>Present\use the data</li>
+    </ol>
+    <p class="alert alert-info">* Please pay attention, there are few different ways fetching the data, we are going to
+        use OOP style of associative arrays in this example</p>
+    <h3>Fetch Single item</h3>
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and fetching the data
+    $result = $mysqli->query("SELECT * FROM pages WHERE id=22");
+    // Present\use the data
+    $page = $result->fetch_assoc()
+    echo "&lt;h1&gt;Welcome to page $page['name'] &lt;/h1&gt;";
+    </code></pre>
+
+    <h3>Fetch single item as Object</h3>
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and fetching the data
+    $result = $mysqli->query("SELECT * FROM pages WHERE id=22");
+    // Present\use the data
+    $page = $result->fetch_object()
+    echo "&lt;h1&gt;Welcome to page $page->name&lt;/h1&gt;";
+    </code></pre>
+
+
+
+    <h3>Fetch Multiple items</h3>
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and fetching the data
+    $results = $mysqli->query("SELECT * FROM pages");
+    // Present\use the data
+    echo "&lt;ul&gt;";
+    while ($row = $results->fetch_assoc()) {
+        echo "&lt;li&gt;$row['name']&lt;/li&gt;";
+    }
+    echo "&lt;/ul&gt;";
+    </code></pre>
+
+
+    <h2 id="update">Update existing data</h2>
+    <ol>
+        <li>Connect to database</li>
+        <li>Create a query and update data in the MySQL database</li>
+    </ol>
+
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and update data in the MySQL database<
+    $id = 817;
+    $escape_image_path = $mysqli->real_escape_string($image_path);
+    $result = $mysqli->query("UPDATE movies SET image_url='$escape_image_path' WHERE ID=$id");
+    </code></pre>
+
+
+    <h2 id="delete">Remove data - (Delete)</h2>
+    <ol>
+        <li>Connect to database</li>
+        <li>Create a query and delete data from the MySQL database</li>
+    </ol>
+    <div class="alert alert-danger" role="alert"><b>Pay attention!</b> Once a row has been deleted there is no way to
+        un-delete.
+    </div>
+
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // Create a query and delete data from the MySQL database
+    $results = $mysqli->query("DELETE FROM pages WHERE id=222");
+    </code></pre>
+    <div class="alert alert-info" role="alert">You can also use mysql function for example:</div>
+    <pre><code class="php">
+    // Connect to database
+    include "connection.php";
+    // For example delete everything from pages that is older then 10 days
+    $results = $mysqli->query("DELETE FROM products WHERE added_datetime < (NOW() - INTERVAL 10 DAY)");
+    </code></pre>
+
+
+</div>
+</body>
+</html>
