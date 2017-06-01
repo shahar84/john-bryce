@@ -1,23 +1,72 @@
 <?php
 include "../connection.php";
+include "functions.php";
+
 $output = "";
+$page_title = "No Movie";
+$error_msg = "";
+$success_msg = "";
+if (isset($_GET['error'])) {
+    $error_msg = "<div class='alert alert-danger'>Problem updating the movie! Try again</div>";
+}
+
+if (isset($_GET['success'])) {
+    $success_msg = "<div class='alert alert-success'>The movie has been updated successfully!</div>";
+}
+
 
 if (isset($_GET['id'])) {
     $movie_id = $_GET['id'];
     $result = $mysqli->query("SELECT * FROM movies WHERE id=$movie_id");
     if ($result->num_rows > 0) {
         $movie = $result->fetch_object();
+        $page_title = "Edit movie: $movie->name";
         $output = "<div><a href='index.php'>Back to movies index</a></div>
+
+                <div class='row edit-form'>
+                    $error_msg
+                    $success_msg
+                    <div class='col-md-12'>
+                        <form action='./update_movie.php' class='form' method='post'>
+                            <input type='hidden' value='$movie_id' name='id'>  
+                             <div class='form-group'>
+                                <label for='name'>Movie Title</label>
+                                <input type='text' class='form-control' name='name' id='name' value='$movie->name' placeholder='Django Unchained for example'>
+                             </div>      
+                             <div class='form-group'>
+                                <label for='year'>Movie Year</label>
+                                <input type='number' class='form-control' name='year' id='year' value='$movie->year' placeholder='2014 for example'>
+                             </div>  
+                            <div class='form-group'>
+                                <label for='description'>Movie Description</label>
+                                <textarea class='form-control' rows='3' id='description' name='description'>$movie->description</textarea>
+                             </div>                                   
+                             <div class='form-group'>
+                                <label for='imdb_id'>IMDB ID</label>
+                                <input type='text' class='form-control' name='imdb_id' id='imdb_id' value='$movie->imdb_id'>
+                             </div>
+                             <div class='form-group'>                            
+                                <label for='image_url'>Poster URL</label>
+                                <input type='text' class='form-control' name='image_url' id='image_url' value='$movie->image_url'>
+                             </div>                                                                                                                                                                        
+                                                  
+                            <button type='submit' class='btn btn-default'>Update movie</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
                     <div class='movie row'>
                         <div class='col-md-6'>
-                            <h2>$movie->name ($movie->year) </h2>
-                            <p>$movie->description</p>
-                            <a target='_blank' href='http://www.imdb.com/title/$movie->imdb_id/'>IMDB link</a>
+                            <h2 id='movie-name'>$movie->name ($movie->year) </h2>
+                            <p id='movie-description'>" . nl2br($movie->description) . "</p>
+                            <a target='_blank' href='http://www.imdb.com/title/$movie->imdb_id/' id='imdb-link'>IMDB link</a>
                         </div>
                         <div class='col-md-6'>
-                            <img class='poster' src='$movie->image_url'>                            
-                        </div>
-                       
+                            <img class='poster' src='$movie->image_url' id='movie-poster'>                            
+                        </div>                       
                     </div>";
     } else {
         $output = "<h2>No Movie with ID $movie_id</h2>";
@@ -25,41 +74,5 @@ if (isset($_GET['id'])) {
 } else {
     $output = "<h2>No Movie ID where supplied</h2>";
 }
-?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>IMDB from</title>
-    <style>
-        main {
-            margin-top: 50px;
-        }
 
-        .movie {
-            margin:auto;
-            max-width: 600px;
-        }
-
-        .movie img {
-            max-width: 300px;
-        }
-    </style>
-
-</head>
-
-<body>
-<main>
-
-    <div class="container">
-        <?php echo $output; ?>
-    </div>
-</main>
-</body>
-</html>
+echo body_wrapper($output, $page_title);
