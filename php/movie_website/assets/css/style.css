@@ -13,5 +13,26 @@ main {
 .edit-form{
     max-width: 600px;
     margin: 50px auto;
-    /*background: red;*/
+}
+
+.headline{
+    font-size: 3em;
+    text-align: center;
+    margin:30px auto;
+}
+.movies-index ul{
+    list-style-type: none;
+    display: flex;
+    flex-flow: wrap;
+}
+.movies-index ul li{
+    margin: auto;
+    margin-bottom: 20px;
+    border: 1px solid lightblue;
+    min-width: 300px;
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
