@@ -1,7 +1,7 @@
 <?php
 
 include "../connection.php";
-include "functions.php";
+include "../functions.php";
 $results = $mysqli->query("SELECT * FROM movies ORDER BY year DESC");
 
 $output = "<h1>Movies Admin</h1>";
@@ -11,6 +11,6 @@ while ($movie = $results->fetch_object()) {
 }
 $output = "<ol>$output</ol>";
 
-echo body_wrapper($output, "Movies list");
+echo body_wrapper($output, "Movies list", '../');
 
 

@@ -1,6 +1,6 @@
 <?php
 include "../connection.php";
-include "functions.php";
+include "../functions.php";
 
 $output = "";
 $page_title = "No Movie";
@@ -75,4 +75,4 @@ if (isset($_GET['id'])) {
     $output = "<h2>No Movie ID where supplied</h2>";
 }
 
-echo body_wrapper($output, $page_title);
+echo body_wrapper($output, $page_title, '../');
