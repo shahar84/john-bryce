@@ -12,6 +12,7 @@ function body_wrapper($output, $title = "Page", $dir = '')
     <link rel='stylesheet' href='{$dir}assets/css/bootstrap.css'>
     <link rel='stylesheet' href='{$dir}assets/css/style.css'>
     <script src='{$dir}assets/script/jquery.js'></script>
+    <script src='{$dir}assets/script/script.js'></script>
     <title>$title</title>
 </head>
 <body>
