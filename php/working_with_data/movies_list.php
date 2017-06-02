@@ -1,5 +1,5 @@
 <?php
-include "../database/connection.php";
+include "connection.php";
 
 $results = $mysqli->query("SELECT * FROM movies ORDER BY id");
 
