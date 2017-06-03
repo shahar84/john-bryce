@@ -21,6 +21,13 @@ if ($movie_id) {
         $movie = $result->fetch_object();
         $page_title = "Edit movie: $movie->name";
         $output = "<div><a href='index.php'>Back to movies index</a></div>
+                
+               <div>
+                    <form action='./delete_movie.php' method='post' >
+                        <input type='hidden' name='id' value='$movie_id'>
+                        <button type='submit' class='btn btn-danger pull-right' onclick=\"return confirm('Are you sure you want to delete  $movie->name?')\">Delete movie</button>
+                    </form>
+               </div>
 
                 <div class='row edit-form'>
                     $error_msg
