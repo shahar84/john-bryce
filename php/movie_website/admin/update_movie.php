@@ -1,12 +1,12 @@
 <?php
 include "../connection.php";
 
-$id = (int)$mysqli->real_escape_string($_POST['id']);
-$name = $mysqli->real_escape_string($_POST['name']);
-$year = (int)$mysqli->real_escape_string($_POST['year']);
-$description = $mysqli->real_escape_string($_POST['description']);
-$imdb_id = $mysqli->real_escape_string($_POST['imdb_id']);
-$image_url = $mysqli->real_escape_string($_POST['image_url']);
+$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+$name = filter_input(INPUT_POST, 'name');
+$year = filter_input(INPUT_POST, 'year', FILTER_VALIDATE_INT);
+$description = filter_input(INPUT_POST, 'description' ,FILTER_SANITIZE_SPECIAL_CHARS);
+$imdb_id = filter_input(INPUT_POST,'imdb_id');
+$image_url = filter_input(INPUT_POST, 'image_url');
 
 $result = $mysqli->query("UPDATE movies
                                 SET name='$name',
@@ -16,10 +16,10 @@ $result = $mysqli->query("UPDATE movies
                                 image_url='$image_url'
                                 WHERE id=$id");
 
-if ( $result === false) {
+if ($result === false) {
     header("Location: edit_movie.php?id=$id&error=true");
     die();
-}else{
+} else {
     header("Location: edit_movie.php?id=$id&success=true");
     die();
 }
