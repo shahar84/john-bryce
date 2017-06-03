@@ -1,6 +1,7 @@
 <?php
 
 include "connection.php";
+include "functions.php";
 $output = '';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -9,6 +10,12 @@ if (isset($_GET['id'])) {
         $movie = $result->fetch_object();
         $output = "
                     <a href='index.php' title='Go to movies list'>Movies list</a>
+                    
+                    
+                    
+                    
+                    
+                    
                     <div class='movie'>
                             <h2>$movie->name ($movie->year) </h2>
                             <p>$movie->description</p>
@@ -23,19 +30,4 @@ if (isset($_GET['id'])) {
     $output = "<h2>No Movie ID was supplied</h2>";
 }
 
-?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <?php echo $output; ?>
-</body>
-</html>
-
+echo body_wrapper($output);
