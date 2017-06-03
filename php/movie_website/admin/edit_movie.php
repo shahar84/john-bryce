@@ -13,10 +13,9 @@ if (isset($_GET['error'])) {
 if (isset($_GET['success'])) {
     $success_msg = "<div class='alert alert-success'>The movie has been updated successfully!</div>";
 }
+$movie_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
-
-if (isset($_GET['id'])) {
-    $movie_id = $_GET['id'];
+if ($movie_id) {
     $result = $mysqli->query("SELECT * FROM movies WHERE id=$movie_id");
     if ($result->num_rows > 0) {
         $movie = $result->fetch_object();
